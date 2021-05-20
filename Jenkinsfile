@@ -28,7 +28,9 @@ pipeline{
         stage('deploy') {
             steps {
                 echo "Estoy desplegando "
-                sh 'cp target/calculadora-0.0.1-SNAPSHOT.jar /tmp'
+                sh 'ansible all -i maquinas copy -a "src=target/calculadora-0.0.1-SNAPSHOT.jar dest=/tmp/calculadora-0.0.1-SNAPSHOT.jar"'
+                sh 'ansible all -i maquinas -a "java -jar /tmp/calculadora-0.0.1-SNAPSHOT.jar"'
+    
             }
         }
     }
